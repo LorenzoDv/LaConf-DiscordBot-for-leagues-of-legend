@@ -11,8 +11,8 @@ module.exports = {
         lolCmd += "2: Rank Info :brain:\n `$lol rank PSEUDO_LOL`\n\n";
         lolCmd += "3: Check si le joueur est en jeu\n `$lol info PSEUDO_LOL`\n\n";
         lolCmd += "4: Info de la game\n `$lol match PSEUDO_LOL`\n\n";
-        var lolCmd5 = "5: Post une photo aléatoire de Baron\n `$baron`\n\n";
-        lolCmd5 += "6: Permet d'aider robin\n `$helpbaron`\n\n";
+        //var lolCmd5 = "5: Post une photo aléatoire de Baron\n `$baron`\n\n";
+        var lolCmd5 = "5: Permet d'aider robin\n `$helpbaron`\n\n";
 
 
 
