@@ -3,6 +3,7 @@ A Discord Bot that fetches League of Legend player data from Riot API, hosted on
  - [Discord Developer Portal](https://discord.com/developers/docs/intro) <br/>
  - [Riot's API](https://developer.riotgames.com) <br/>
  - [Discord.js](https://discord.js.org/#/) <br/>
+ - My discord : Senshi#6124
 
 ## A Quick Guide
 A **.env** file is required in order to run the bot locally. It needs to look like the following:
