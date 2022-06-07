@@ -12,7 +12,7 @@ module.exports = {
 
         const helpEmbed = new Discord.MessageEmbed();
         helpEmbed.setColor('#0099ff');
-        helpEmbed.setDescription("Leagues of legend est en cour de désinstallation...")
+        helpEmbed.setDescription("League of legends est en cours de désinstallation...")
 
         message.channel.send(helpEmbed);
     }
