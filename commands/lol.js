@@ -3,6 +3,7 @@ const masterySearchLink = 'https://euw1.api.riotgames.com/lol/champion-mastery/v
 const accountInfoLink = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/';
 
 
+
 const utf8 = require('utf8');
 const riotKey = 'api_key=' + process.env.RIOTKEY;
 const { DiscordAPIError } = require("discord.js");
@@ -146,7 +147,7 @@ module.exports = {
                 var hours = Math.floor(gameLength / 3600);
                 var minutes = Math.floor((gameLength % 3600) / 60);
                 var seconds = gameLength % 60;
-                var gameLengthString = hours + 'h ' + minutes + 'm ' + seconds + 's';
+                var gameLengthString = (hours + 2) + 'h ' + minutes + 'm ' + seconds + 's';
 
                 var champName = '';
                 var champID = '';
