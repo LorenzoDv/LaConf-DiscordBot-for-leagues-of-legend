@@ -129,11 +129,17 @@ module.exports = {
             if (currentGameData.hasOwnProperty('gameId')) {
                 const gameStartTime = currentGameData.gameStartTime;
                 // format timestamp a l'heure francaise fuseau horaire paris
-                var date = new Date(gameStartTime);
-                var dateString = date.toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
-
-
-
+                const date = new Date(gameStartTime);
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: false
+                };
+                const dateString = date.toLocaleString('fr-FR', options, { timeZone: 'Europe/Paris' });
 
                 const gameLength = currentGameData.gameLength;
 
