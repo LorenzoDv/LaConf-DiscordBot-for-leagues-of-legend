@@ -130,14 +130,6 @@ module.exports = {
                 const gameStartTime = currentGameData.gameStartTime;
                 // format timestamp a l'heure francaise fuseau horaire paris
                 const date = new Date(gameStartTime);
-                const options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    second: 'numeric',
-                };
                 const dateString = date.toLocaleString('fr-FR', options, { timeZone: 'Europe/Paris' })
 
 
