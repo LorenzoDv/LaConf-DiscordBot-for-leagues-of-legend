@@ -14,6 +14,7 @@
     "discord-buttons": "^4.0.0-deprecated",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
+    "lol-riot-api": "^3.0.2",
     "node-html-markdown": "^1.2.0",
     "quick.db": "^9.0.2",
     "superagent": "^7.1.6",
