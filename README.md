@@ -17,17 +17,19 @@ node index.js
 
 ## Overview
 ### The bot supports the following commands: ```!guide```<br/>
-``` !lol rank #playerName ``` <br/>
-Displays the current ranked status of the given summoner. <br/><br/>
-<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/lolrankinfo.PNG" width = "300"> <br/><br/><br/>
-``` !lol mastery #playerName ``` <br/>
-Displays the top 5 highest mastery points champions of the given summoner (In descending order) + Total mastery points on Riot account. <br/><br/>
-<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/masteryinfo1.PNG" width = "300"> <br/><br/><br/>
 
+Displays the current ranked status of the given summoner. <br/><br/>
+``` !lol rank #playerName ``` <br/><br/>
+<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/lolrankinfo.PNG" width = "300"> <br/><br/><br/>
+<hr>
+Displays the top 5 highest mastery points champions of the given summoner (In descending order) + Total mastery points on Riot account. <br/><br/>
+``` !lol mastery #playerName ``` <br/><br/>
+<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/masteryinfo1.PNG" width = "300"> <br/><br/><br/>
+<hr>
 Check if player is in game or not !<br/><br/>
 ``` !lol info #playerName ``` <br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/infoplayer.PNG" width = "300"> <br/><br/><br/>
-
+<hr>
 Match info by sumoner name ! current game time, game start !<br/><br/>
 ``` !lol match #playerName ``` <br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/gamestart.PNG" width = "300"> <br/><br/><br/>
