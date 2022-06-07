@@ -25,11 +25,11 @@ Displays the top 5 highest mastery points champions of the given summoner (In de
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/masteryinfo1.PNG" width = "300"> <br/><br/><br/>
 
 Check if player is in game or not !<br/><br/>
-``` !lol info #playerName ``` <br/>
+``` !lol info #playerName ``` <br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/infoplayer.PNG" width = "300"> <br/><br/><br/>
 
 Match info by sumoner name ! current game time, game start !<br/><br/>
-``` !lol match #playerName ``` <br/>
+``` !lol match #playerName ``` <br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/gamestart.PNG" width = "300"> <br/><br/><br/>
 
 
