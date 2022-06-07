@@ -140,7 +140,7 @@ module.exports = {
                 var hours = Math.floor(gameLength / 3600);
                 var minutes = Math.floor((gameLength % 3600) / 60);
                 var seconds = gameLength % 60;
-                var gameLengthString = hours + 'h ' + minutes + 'm ' + seconds + 's';
+                var gameLengthString = hours + 'h ' + (minutes + 4) + 'm ' + seconds + 's';
 
                 var champName = '';
                 var champID = '';
