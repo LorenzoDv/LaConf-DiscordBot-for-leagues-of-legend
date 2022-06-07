@@ -128,18 +128,12 @@ module.exports = {
             const currentGameData = await currentGame.json();
             if (currentGameData.hasOwnProperty('gameId')) {
                 const gameStartTime = currentGameData.gameStartTime;
-                // format timestamp a l'heure francaise
-                const date = new Date(gameStartTime);
-                const options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    second: 'numeric',
-                    hour12: false
-                };
-                const dateString = date.toLocaleString('fr-FR', options);
+                // format timestamp a l'heure francaise fuseau horaire paris
+                var date = new Date(gameStartTime);
+                var dateString = date.toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
+
+
+
 
                 const gameLength = currentGameData.gameLength;
 
@@ -147,7 +141,7 @@ module.exports = {
                 var hours = Math.floor(gameLength / 3600);
                 var minutes = Math.floor((gameLength % 3600) / 60);
                 var seconds = gameLength % 60;
-                var gameLengthString = (hours + 2) + 'h ' + minutes + 'm ' + seconds + 's';
+                var gameLengthString = hours + 'h ' + minutes + 'm ' + seconds + 's';
 
                 var champName = '';
                 var champID = '';
