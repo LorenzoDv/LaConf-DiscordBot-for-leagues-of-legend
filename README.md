@@ -24,4 +24,4 @@ Displays the current ranked status of the given summoner. <br/><br/>
 ``` !show lol mastery #playerName ``` <br/>
 Displays the top 5 highest mastery points champions of the given summoner (In descending order) + Total mastery points on Riot account. <br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/masteryinfo1.PNG" width = "300"> <br/><br/><br/>
-``` !show lol freerotation ``` <br/>
+
