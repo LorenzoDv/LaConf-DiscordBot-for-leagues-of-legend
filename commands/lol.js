@@ -1,6 +1,7 @@
 const summonerSearchLink = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
 const masterySearchLink = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/';
 const accountInfoLink = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/';
+const masteryscore = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/';
 
 
 
@@ -280,6 +281,16 @@ module.exports = {
                 }
             }
             //calcul all mastery points
+            const masteryscore = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/';
+            //with masteryscore find score by sumonername
+            const masteryScore1 = await fetch(masteryscore + encryptedID + '?' + riotKey);
+            let masteryScoreData = await masteryScore1.json();
+            var score = new Intl.NumberFormat().format(masteryScoreData);
+            var score2 = score.replace(/\s/g, '.');
+
+
+
+
 
 
 
@@ -296,7 +307,8 @@ module.exports = {
                     { name: ':third_place: `' + names[2] + '`', value: masteries[2] },
                     { name: '4: `' + names[3] + '`', value: masteries[3] },
                     { name: '5: `' + names[4] + '`', value: masteries[4] },
-                    { name: 'Point de maîtraise global : ', value: ':arrow_right:  ' + total2 }
+                    { name: 'Point de maîtraise global : ', value: ':arrow_right:  ' + total2 },
+                    { name: 'Total du nombre de level passé : ', value: ':arrow_right:  ' + score2 }
 
 
                 )
