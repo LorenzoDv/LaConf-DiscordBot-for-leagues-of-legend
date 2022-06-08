@@ -224,8 +224,8 @@ module.exports = {
                     // .addField('>>> Mode de jeu :', queueID, true + "\n")
 
                     .addFields(
-                        { name: 'Alliés :blue_square:  :', value: `>>> ${teamName}`, inline: true },
-                        { name: 'Enemy :red_square:  :', value: `>>> ${redteam}`, inline: true }
+                        { name: 'Blue Side :blue_square:  :', value: `>>> ${teamName}`, inline: true },
+                        { name: 'Red Side :red_square:  :', value: `>>> ${redteam}`, inline: true }
                     )
                     .setTimestamp()
                     .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
