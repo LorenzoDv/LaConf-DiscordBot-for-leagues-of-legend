@@ -391,7 +391,7 @@ module.exports = {
                             if (progress[c] == 'L') {
                                 progressStr += ':x:   ';
                             } else if (progress[c] == 'W') {
-                                progressStr += ':o:   ';
+                                progressStr += ':white_check_mark:   ';
                             } else {
                                 progressStr += ':question:   ';
                             }
