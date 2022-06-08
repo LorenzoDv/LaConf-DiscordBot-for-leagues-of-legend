@@ -42,3 +42,4 @@ client.on('ready', () => {
     client.user.setActivity('$help', { type: 'PLAYING' });
 }
 );
+

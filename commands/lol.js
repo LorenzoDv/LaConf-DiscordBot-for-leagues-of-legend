@@ -153,6 +153,7 @@ module.exports = {
                     if (currentGameData.participants[i].summonerName == summonerName) {
                         champName = currentGameData.participants[i].IDchampData;
                         champID = currentGameData.participants[i].championId;
+                        gm = currentGameData.participants[i].gameMode;
                         champIcon = currentGameData.participants[i].championIcon;
                         champEmblem = currentGameData.participants[i].championEmblem;
                         champEmblemURL = 'http://ddragon.leagueoflegends.com/cdn/12.10.1/data/fr_FR/champion.json' + champIcon + '.png';
@@ -168,7 +169,7 @@ module.exports = {
                     .setImage(champEmblemURL2)
                     .addField('Game lancé le :', dateString, true + "\n")
                     .addField('La game en est à :', gameLengthString, true + "\n")
-
+                    .addField('Mode de jeu :', gm, true + "\n")
                     .setTimestamp()
                     .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
 
