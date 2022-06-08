@@ -148,13 +148,62 @@ module.exports = {
                 var champEmblem = '';
                 var champEmblemURL = '';
                 var champEmblemURL2 = '';
-                var gm = '';
+                //recup gameQueueConfigId
+                var queueID = currentGameData.gameQueueConfigId;
+                // if queueID == 420, ranked
+                if (queueID == 420) {
+                    queueID = 'Solo/duo';
+                }
+                // if queueID == 440, normal
+                else if (queueID == 400) {
+                    queueID = 'Normal game';
+                }
+                // if queueID == 440, ranked flex
+                else if (queueID == 440) {
+                    queueID = 'ranked flex';
+                }
+                // if queueID == 430, Mode aveugle
+                else if (queueID == 430) {
+                    queueID = 'Mode aveugle';
+                }
+                else {
+                    queueID = 'Mode de jeux temporaire';
+                }
+                //recup la liste des des sumoners name in participants
+                var participants = currentGameData.participants;
+                var participantsName = '';
+                for (var i = 0; i < participants.length; i++) {
+                    participantsName += participants[i].summonerName + '\n';
+                }
+                //participant name filter par teamId
+                var teamId = currentGameData.participants[0].teamId;
+                var teamName = '';
+                for (var i = 0; i < participants.length; i++) {
+                    if (participants[i].teamId == teamId) {
+                        teamName += participants[i].summonerName + '\n';
+                    }
+                }
+                //recup participants with teamId = 200
+                var redteam = '';
+                for (var i = 0; i < participants.length; i++) {
+                    if (participants[i].teamId == 200) {
+                        redteam += participants[i].summonerName + '\n';
+                    }
+                }
+
+
+
+
+
+
+
+
+
 
                 for (var i = 0; i < currentGameData.participants.length; i++) {
                     if (currentGameData.participants[i].summonerName == summonerName) {
                         champName = currentGameData.participants[i].IDchampData;
                         champID = currentGameData.participants[i].championId;
-                        gm = currentGameData.participants[i].gameMode;
                         champIcon = currentGameData.participants[i].championIcon;
                         champEmblem = currentGameData.participants[i].championEmblem;
                         champEmblemURL = 'http://ddragon.leagueoflegends.com/cdn/12.10.1/data/fr_FR/champion.json' + champIcon + '.png';
@@ -168,9 +217,16 @@ module.exports = {
                     .setColor(0x00AE86)
                     .setThumbnail(champEmblemURL)
                     .setImage(champEmblemURL2)
-                    .addField('Game lancé le :', dateString, true + "\n")
-                    .addField('La game en est à :', gameLengthString, true + "\n")
-                    .addField('Mode de jeu :', gm, true + "\n")
+                    .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "\n" },
+                        { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "\n" },
+                        { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" })
+                    // .addField('>>> La game en est à :', gameLengthString, true + "\n")
+                    // .addField('>>> Mode de jeu :', queueID, true + "\n")
+
+                    .addFields(
+                        { name: 'Alliés :blue_square:  :', value: `>>> ${teamName}`, inline: true },
+                        { name: 'Enemy :red_square:  :', value: `>>> ${redteam}`, inline: true }
+                    )
                     .setTimestamp()
                     .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
 
