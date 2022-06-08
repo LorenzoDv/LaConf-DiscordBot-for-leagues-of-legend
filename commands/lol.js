@@ -148,6 +148,7 @@ module.exports = {
                 var champEmblem = '';
                 var champEmblemURL = '';
                 var champEmblemURL2 = '';
+                var gm = '';
 
                 for (var i = 0; i < currentGameData.participants.length; i++) {
                     if (currentGameData.participants[i].summonerName == summonerName) {
