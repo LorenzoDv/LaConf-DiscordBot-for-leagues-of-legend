@@ -124,10 +124,15 @@ module.exports = {
             }
         }
         if (split[1] == 'match') {
-            //recup CurrentGameInfo gameStartTime   participants championId
+
+
+
             const currentGame = await fetch('https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + encryptedID + '?' + riotKey);
             const currentGameData = await currentGame.json();
             if (currentGameData.hasOwnProperty('gameId')) {
+
+
+
                 const gameStartTime = currentGameData.gameStartTime;
                 // format timestamp a l'heure francaise fuseau horaire paris
                 const date = new Date(gameStartTime);
@@ -172,9 +177,9 @@ module.exports = {
                 }
                 //recup la liste des des sumoners name in participants
                 var participants = currentGameData.participants;
-                var participantsName = '';
+                var participantsName = [];
                 for (var i = 0; i < participants.length; i++) {
-                    participantsName += participants[i].summonerName + '\n';
+                    participantsName.push(participants[i].summonerName);
                 }
                 //participant name filter par teamId
                 var teamId = currentGameData.participants[0].teamId;
@@ -256,6 +261,24 @@ module.exports = {
                         if (redteamChampionId[i] == 221) {
                             redteamChampionId[i] = 'Zeri';
                         }
+                        if (redteamChampionId[i] == 777) {
+                            redteamChampionId[i] = 'Yone';
+                        }
+                        if (redteamChampionId[i] == 234) {
+                            redteamChampionId[i] = 'Viego';
+                        }
+                        if (redteamChampionId[i] == 887) {
+                            redteamChampionId[i] = 'Gwen';
+                        }
+                        if (redteamChampionId[i] == 888) {
+                            redteamChampionId[i] = 'Renata';
+                        }
+                        if (redteamChampionId[i] == 876) {
+                            redteamChampionId[i] = 'Lillia';
+                        }
+                        if (redteamChampionId[i] == 166) {
+                            redteamChampionId[i] = 'Akshan';
+                        }
                     }
                 }
 
@@ -267,53 +290,238 @@ module.exports = {
                         if (blueteamChampionId[i] == 221) {
                             blueteamChampionId[i] = 'Zeri';
                         }
+                        if (blueteamChampionId[i] == 777) {
+                            blueteamChampionId[i] = 'Yone';
+                        }
+                        if (blueteamChampionId[i] == 234) {
+                            blueteamChampionId[i] = 'Viego';
+                        }
+                        if (blueteamChampionId[i] == 887) {
+                            blueteamChampionId[i] = 'Gwen';
+                        }
+                        if (blueteamChampionId[i] == 888) {
+                            blueteamChampionId[i] = 'Renata';
+                        }
+                        if (blueteamChampionId[i] == 876) {
+                            blueteamChampionId[i] = 'Lillia';
+                        }
+                        if (blueteamChampionId[i] == 166) {
+                            blueteamChampionId[i] = 'Akshan';
+                        }
                     }
                 }
-                console.log(redteamChampionId);
-                console.log(blueteamChampionId);
-
-
-                // redteamChampionId
-                let listePerso = "Liste des joueurs :\n";
-                for (let i = 0; i < teamName.length; i++) {
-                    if (teamName[i] != summonerName) {
-                        listePerso = listePerso + '\n' + `${teamName[i]} : ${blueteamChampionId[i]} \n`;
-                    } else if (teamName[i] == summonerName) {
-                        listePerso = listePerso + '\n' + `**${teamName[i]} : ${blueteamChampionId[i]}**\n`;
-                    }
-                }
-                let listePersoRed = "Liste des joueurs :\n";
-                for (let i = 0; i < teamName.length; i++) {
-                    if (redteam[i] != summonerName) {
-                        listePersoRed = listePersoRed + '\n' + `${redteam[i]} : ${redteamChampionId[i]} \n`;
-                    } else if (redteam[i] == summonerName) {
-                        listePersoRed = listePersoRed + '\n' + `**${redteam[i]} : ${redteamChampionId[i]}**\n`;
+                //recupere les summonerId in teamName with spectatorv4
+                var redteamSummonerId = [];
+                for (var i = 0; i < redteam.length; i++) {
+                    for (var j = 0; j < currentGameData.participants.length; j++) {
+                        if (currentGameData.participants[j].summonerName == redteam[i]) {
+                            redteamSummonerId.push(currentGameData.participants[j].summonerId);
+                        }
                     }
                 }
 
-                // teamName = blueteamChampionId
-
-                const embed = new Discord.MessageEmbed()
-                    .setTitle(':arrow_down: Informations sur la game en cours :arrow_down:')
-                    .setDescription('Nom de joueur : ' + '**' + summonerName + '**')
-                    .setColor(0x00AE86)
-                    .setThumbnail(champEmblemURL)
-                    .setImage(champEmblemURL2)
-                    .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "\n" },
-                        { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "\n" },
-                        { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
-                    )
-
-                    .addFields(
-                        { name: 'Blue Side :blue_square:  :', value: `>>> ${listePerso}`, inline: true },
-                        { name: 'Red Side :red_square:  :', value: `>>> ${listePersoRed}`, inline: true }
-                    )
-                    .setTimestamp()
-                    .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
 
 
-                message.channel.send({ embed });
+                var blueteamSummonerId = [];
+                for (var i = 0; i < teamName.length; i++) {
+                    for (var j = 0; j < currentGameData.participants.length; j++) {
+                        if (currentGameData.participants[j].summonerName == teamName[i]) {
+                            blueteamSummonerId.push(currentGameData.participants[j].summonerId);
+                        }
+                    }
+                }
+
+                //executer si le joueur est en ranked
+                if (queueID == 420) {
+
+                    var redteamRank = [];
+                    for (var i = 0; i < redteamSummonerId.length; i++) {
+                        const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + redteamSummonerId[i] + '?' + riotKey);
+                        const data = await response.json();
+                        redteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+
+                    }
+                    //create an objet with redteamRank and redteamSummonerId
+                    var redteamRankObject = {};
+                    for (var i = 0; i < redteamSummonerId.length; i++) {
+                        redteamRankObject[redteamSummonerId[i]] = redteamRank[i];
+                    }
+                    console.log(redteamRankObject);
+
+
+
+
+                    //with blueteamSummonerId recupere les rank with leaguesv4
+                    var blueteamRank = [];
+                    for (var i = 0; i < blueteamSummonerId.length; i++) {
+                        const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + blueteamSummonerId[i] + '?' + riotKey);
+                        const data = await response.json();
+                        blueteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                    }
+
+
+                    var blueteamRankObject = {};
+                    for (var i = 0; i < blueteamSummonerId.length; i++) {
+                        blueteamRankObject[blueteamSummonerId[i]] = blueteamRank[i];
+                    }
+                    console.log(blueteamRankObject);
+                    console.log(redteam);
+
+                    // redteamChampionId
+                    let listePerso = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (teamName[i] != summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: **${teamName[i]}** : ${blueteamChampionId[i]} \n\nSolo/duo :${blueteamRank[i]}\n`;
+                        } else if (teamName[i] == summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: :arrow_right: **${teamName[i]}** : ${blueteamChampionId[i]} \n\nSolo/duo :${blueteamRank[i]}\n`;
+                        }
+                    }
+                    let listePersoRed = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (redteam[i] != summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: **${redteam[i]}** : ${redteamChampionId[i]} \n\nSolo/duo :${redteamRank[i]} \n`;
+                        } else if (redteam[i] == summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: :arrow_right: **${redteam[i]}** : ${redteamChampionId[i]} \n\nSolo/duo : ${redteamRank[i]}\n`;
+                        }
+                    }
+
+
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle(':arrow_down: Informations sur la game en cours :arrow_down:')
+                        .setDescription('Nom de joueur : ' + '**' + summonerName + '**')
+                        .setColor(0x00AE86)
+                        .setThumbnail(champEmblemURL)
+                        .setImage(champEmblemURL2)
+                        .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
+                        )
+
+                        .addFields(
+                            { name: 'Blue Side :blue_square:  :', value: `>>> ${listePerso}`, inline: true },
+                            { name: 'Red Side :red_square:  :', value: `>>> ${listePersoRed}`, inline: true }
+                        )
+                        .setTimestamp()
+                        .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
+
+
+                    message.channel.send({ embed });
+                }
+                else if (queueID == 420) {
+                    var redteamRank = [];
+                    for (var i = 0; i < redteamSummonerId.length; i++) {
+                        const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + redteamSummonerId[i] + '?' + riotKey);
+                        const data = await response.json();
+                        redteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+
+                    }
+                    //create an objet with redteamRank and redteamSummonerId
+                    var redteamRankObject = {};
+                    for (var i = 0; i < redteamSummonerId.length; i++) {
+                        redteamRankObject[redteamSummonerId[i]] = redteamRank[i];
+                    }
+                    console.log(redteamRankObject);
+
+
+
+
+                    //with blueteamSummonerId recupere les rank with leaguesv4
+                    var blueteamRank = [];
+                    for (var i = 0; i < blueteamSummonerId.length; i++) {
+                        const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + blueteamSummonerId[i] + '?' + riotKey);
+                        const data = await response.json();
+                        blueteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                    }
+
+
+                    var blueteamRankObject = {};
+                    for (var i = 0; i < blueteamSummonerId.length; i++) {
+                        blueteamRankObject[blueteamSummonerId[i]] = blueteamRank[i];
+                    }
+                    console.log(blueteamRankObject);
+                    console.log(redteam);
+
+                    // redteamChampionId
+                    let listePerso = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (teamName[i] != summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: **${teamName[i]}** : ${blueteamChampionId[i]} \n\nSolo/duo :${blueteamRank[i]}\n`;
+                        } else if (teamName[i] == summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: :arrow_right: **${teamName[i]}** : ${blueteamChampionId[i]} \n\nSolo/duo :${blueteamRank[i]}\n`;
+                        }
+                    }
+                    let listePersoRed = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (redteam[i] != summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: **${redteam[i]}** : ${redteamChampionId[i]} \n\nSolo/duo :${redteamRank[i]} \n`;
+                        } else if (redteam[i] == summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: :arrow_right: **${redteam[i]}** : ${redteamChampionId[i]} \n\nSolo/duo : ${redteamRank[i]}\n`;
+                        }
+                    }
+
+
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle(':arrow_down: Informations sur la game en cours :arrow_down:')
+                        .setDescription('Nom de joueur : ' + '**' + summonerName + '**')
+                        .setColor(0x00AE86)
+                        .setThumbnail(champEmblemURL)
+                        .setImage(champEmblemURL2)
+                        .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
+                        )
+
+                        .addFields(
+                            { name: 'Blue Side :blue_square:  :', value: `>>> ${listePerso}`, inline: true },
+                            { name: 'Red Side :red_square:  :', value: `>>> ${listePersoRed}`, inline: true }
+                        )
+                        .setTimestamp()
+                        .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
+
+
+                    message.channel.send({ embed });
+                }
+                else {
+                    let listePerso = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (teamName[i] != summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: **${teamName[i]}** : ${blueteamChampionId[i]} `;
+                        } else if (teamName[i] == summonerName) {
+                            listePerso = listePerso + '\n' + `:technologist: :arrow_right: **${teamName[i]}** : ${blueteamChampionId[i]}`;
+                        }
+                    }
+                    let listePersoRed = "";
+                    for (let i = 0; i < teamName.length; i++) {
+                        if (redteam[i] != summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: **${redteam[i]}** : ${redteamChampionId[i]}`;
+                        } else if (redteam[i] == summonerName) {
+                            listePersoRed = listePersoRed + '\n' + `:technologist: :arrow_right: **${redteam[i]}** : ${redteamChampionId[i]}`;
+                        }
+                    }
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle(':arrow_down: Informations sur la game en cours :arrow_down:')
+                        .setDescription('Nom de joueur : ' + '**' + summonerName + '**')
+                        .setColor(0x00AE86)
+                        .setThumbnail(champEmblemURL)
+                        .setImage(champEmblemURL2)
+                        .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "" },
+                            { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
+                        )
+                        .addFields(
+                            { name: 'Blue Side :blue_square:  :', value: `>>> ${listePerso}`, inline: true },
+                            { name: 'Red Side :red_square:  :', value: `>>> ${listePersoRed}`, inline: true }
+                        )
+                        .setTimestamp()
+                        .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
+
+
+                    message.channel.send({ embed });
+                }
             }
+        }
+        else {
+            message.channel.send('Commande a utliser en Solo/duo ou en flex');
         }
         //fin game id and send current match info
 
