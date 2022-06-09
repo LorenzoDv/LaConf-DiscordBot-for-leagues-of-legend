@@ -39,11 +39,16 @@ Check if player is in game or not !<br/><br/>
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/infoplayer.PNG" width = "300"> <br/><br/><br/>
 
 <hr>
-Match info by sumoner name ! current game time, game start !<br/><br/>
+Match info by sumoner name ! For Ranked flex or Solo/duo !<br/><br/>
 
 ``` $lol match #playerName ``` <br/><br/>
 
-<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-Discord_bot/master/img/demo/gamestart.PNG" width = "300"> <br/><br/><br/>
+<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-DiscordBot-for-leagues-of-legend/master/img/demo/embedlol.PNG" width = "300"> <br/><br/><br/>
+Match info by sumoner name ! Normal game !<br/><br/>
+
+``` $lol match #playerName ``` <br/><br/>
+
+<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-DiscordBot-for-leagues-of-legend/master/img/demo/normal%20game.PNG" width = "300"> <br/><br/><br/>
 
 
 
