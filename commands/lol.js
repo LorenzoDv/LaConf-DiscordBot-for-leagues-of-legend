@@ -156,6 +156,7 @@ module.exports = {
                 var champEmblemURL2 = '';
                 //recup gameQueueConfigId
                 var queueID = currentGameData.gameQueueConfigId;
+                var queuid = currentGameData.gameQueueConfigId
                 // if queueID == 420, ranked
                 if (queueID == 420) {
                     queueID = 'Solo/duo';
@@ -332,7 +333,7 @@ module.exports = {
                 }
 
                 //executer si le joueur est en ranked
-                if (queueID == 420) {
+                if (queuid == 420) {
 
                     var redteamRank = [];
                     for (var i = 0; i < redteamSummonerId.length; i++) {
@@ -407,7 +408,7 @@ module.exports = {
 
                     message.channel.send({ embed });
                 }
-                else if (queueID == 420) {
+                else if (queuid == 420) {
                     var redteamRank = [];
                     for (var i = 0; i < redteamSummonerId.length; i++) {
                         const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + redteamSummonerId[i] + '?' + riotKey);
