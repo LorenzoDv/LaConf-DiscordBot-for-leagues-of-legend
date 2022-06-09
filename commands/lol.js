@@ -302,7 +302,6 @@ module.exports = {
                     .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "\n" },
                         { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "\n" },
                         { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
-                        { name: '\u200B', value: ` champ icon : ${champIcon}`, inline: true + "\n" },
                     )
 
                     .addFields(
