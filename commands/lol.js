@@ -161,7 +161,7 @@ module.exports = {
                 }
                 // if queueID == 440, ranked flex
                 else if (queueID == 440) {
-                    queueID = 'ranked flex';
+                    queueID = 'Ranked flex';
                 }
                 // if queueID == 430, Mode aveugle
                 else if (queueID == 430) {
@@ -178,25 +178,35 @@ module.exports = {
                 }
                 //participant name filter par teamId
                 var teamId = currentGameData.participants[0].teamId;
-                var teamName = '';
+                var teamName = [];
                 for (var i = 0; i < participants.length; i++) {
                     if (participants[i].teamId == teamId) {
-                        teamName += participants[i].summonerName + '\n';
+                        teamName.push(participants[i].summonerName);
                     }
                 }
                 //recup participants with teamId = 200
-                var redteam = '';
+                var redteam = [];
                 for (var i = 0; i < participants.length; i++) {
                     if (participants[i].teamId == 200) {
-                        redteam += participants[i].summonerName + '\n';
+                        redteam.push(participants[i].summonerName);
+                    }
+                }
+                // championId by participants in redteam
+                var redteamChampionId = [];
+                for (var i = 0; i < participants.length; i++) {
+                    if (participants[i].teamId == 200) {
+                        redteamChampionId.push(participants[i].championId);
                     }
                 }
 
 
-
-
-
-
+                //championId by participants in blueteam
+                var blueteamChampionId = [];
+                for (var i = 0; i < participants.length; i++) {
+                    if (participants[i].teamId == 100) {
+                        blueteamChampionId.push(participants[i].championId);
+                    }
+                }
 
 
 
@@ -212,6 +222,77 @@ module.exports = {
                     }
 
                 }
+
+
+                const champResponse = await fetch('http://ddragon.leagueoflegends.com/cdn/10.10.3208608/data/fr_FR/champion.json');
+                const champData = await champResponse.json();
+
+                //find "Key" of all champions
+                const champName1 = Object(champData.data);
+                //create a array with champData.data
+                const champName2 = Object.values(champData.data);
+
+                //create a array with champData.data.key
+                const champName3 = Object.values(champData.data).map(champ => champ.key);
+
+                const champName4 = Object.values(champData.data).map(champ => champ.id);
+
+
+
+
+                let champArray = {}
+                for (let i = 0; i < champName3.length; i++) {
+                    let name = champName4[i];
+                    let key = champName3[i]
+                    champArray[name] = key;
+                }
+
+
+                for (const prop in champArray) {
+                    for (let i = 0; i < redteamChampionId.length; i++) {
+                        if (redteamChampionId[i] == champArray[prop]) {
+                            redteamChampionId[i] = prop;
+                        }
+                        if (redteamChampionId[i] == 221) {
+                            redteamChampionId[i] = 'Zeri';
+                        }
+                    }
+                }
+
+                for (const prop in champArray) {
+                    for (let i = 0; i < blueteamChampionId.length; i++) {
+                        if (blueteamChampionId[i] == champArray[prop]) {
+                            blueteamChampionId[i] = prop;
+                        }
+                        if (blueteamChampionId[i] == 221) {
+                            blueteamChampionId[i] = 'Zeri';
+                        }
+                    }
+                }
+                console.log(redteamChampionId);
+                console.log(blueteamChampionId);
+
+
+                // redteamChampionId
+                let listePerso = "Liste des joueurs :\n";
+                for (let i = 0; i < teamName.length; i++) {
+                    if (teamName[i] != summonerName) {
+                        listePerso = listePerso + '\n' + `${teamName[i]} : ${blueteamChampionId[i]} \n`;
+                    } else if (teamName[i] == summonerName) {
+                        listePerso = listePerso + '\n' + `**${teamName[i]} : ${blueteamChampionId[i]}**\n`;
+                    }
+                }
+                let listePersoRed = "Liste des joueurs :\n";
+                for (let i = 0; i < teamName.length; i++) {
+                    if (redteam[i] != summonerName) {
+                        listePersoRed = listePersoRed + '\n' + `${redteam[i]} : ${redteamChampionId[i]} \n`;
+                    } else if (redteam[i] == summonerName) {
+                        listePersoRed = listePersoRed + '\n' + `**${redteam[i]} : ${redteamChampionId[i]}**\n`;
+                    }
+                }
+
+                // teamName = blueteamChampionId
+
                 const embed = new Discord.MessageEmbed()
                     .setTitle(':arrow_down: Informations sur la game en cours :arrow_down:')
                     .setDescription('Nom de joueur : ' + '**' + summonerName + '**')
@@ -220,13 +301,13 @@ module.exports = {
                     .setImage(champEmblemURL2)
                     .addFields({ name: '\u200B', value: `**Game lancé le : ** ${dateString}`, inline: true + "\n" },
                         { name: '\u200B', value: ` **La game en est à : ** ${gameLengthString}`, inline: true + "\n" },
-                        { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" })
-                    // .addField('>>> La game en est à :', gameLengthString, true + "\n")
-                    // .addField('>>> Mode de jeu :', queueID, true + "\n")
+                        { name: '\u200B', value: ` **Mode de jeu : ** ${queueID}`, inline: true + "\u200B" },
+                        { name: '\u200B', value: ` champ icon : ${champIcon}`, inline: true + "\n" },
+                    )
 
                     .addFields(
-                        { name: 'Blue Side :blue_square:  :', value: `>>> ${teamName}`, inline: true },
-                        { name: 'Red Side :red_square:  :', value: `>>> ${redteam}`, inline: true }
+                        { name: 'Blue Side :blue_square:  :', value: `>>> ${listePerso}`, inline: true },
+                        { name: 'Red Side :red_square:  :', value: `>>> ${listePersoRed}`, inline: true }
                     )
                     .setTimestamp()
                     .setFooter('La Confinerie © Senshi, Inc.', "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128");
