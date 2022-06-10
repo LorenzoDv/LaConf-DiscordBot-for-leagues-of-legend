@@ -280,6 +280,9 @@ module.exports = {
                         if (redteamChampionId[i] == 166) {
                             redteamChampionId[i] = 'Akshan';
                         }
+                        if (redteamChampionId[i] == 200) {
+                            redteamChampionId[i] = 'Bel\'Veth';
+                        }
                     }
                 }
 
@@ -309,6 +312,9 @@ module.exports = {
                         if (blueteamChampionId[i] == 166) {
                             blueteamChampionId[i] = 'Akshan';
                         }
+                        if (blueteamChampionId[i] == 200) {
+                            blueteamChampionId[i] = 'Bel\'Veth';
+                        }
                     }
                 }
                 //recupere les summonerId in teamName with spectatorv4
@@ -333,13 +339,26 @@ module.exports = {
                 }
 
                 //executer si le joueur est en ranked
-                if (queuid == 420) {
+                if (queuid == 440) {
 
                     var redteamRank = [];
                     for (var i = 0; i < redteamSummonerId.length; i++) {
                         const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + redteamSummonerId[i] + '?' + riotKey);
                         const data = await response.json();
-                        redteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                        if (data.length == 0) {
+                            redteamRank.push('`' + "Unranked" + '`');
+                        }
+                        else {
+
+
+                            let winrate = Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10;
+                            if (winrate >= 50) {
+                                redteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':white_check_mark: ';
+                            }
+                            else if (winrate < 50) {
+                                redteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':x:';
+                            }
+                        }
 
                     }
                     //create an objet with redteamRank and redteamSummonerId
@@ -357,8 +376,22 @@ module.exports = {
                     for (var i = 0; i < blueteamSummonerId.length; i++) {
                         const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + blueteamSummonerId[i] + '?' + riotKey);
                         const data = await response.json();
-                        blueteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                        if (data.length == 0) {
+                            blueteamRank.push('`' + "Unranked" + '`');
+                        }
+                        else {
+                            let winrate = Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10;
+                            // blueteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                            if (winrate >= 50) {
+                                blueteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`   ' + '  :white_check_mark: ';
+                            }
+                            else if (winrate < 50) {
+                                blueteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`   ' + '  :x:';
+                            }
+                        }
+
                     }
+
 
 
                     var blueteamRankObject = {};
@@ -409,11 +442,25 @@ module.exports = {
                     message.channel.send({ embed });
                 }
                 else if (queuid == 420) {
+
                     var redteamRank = [];
                     for (var i = 0; i < redteamSummonerId.length; i++) {
                         const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + redteamSummonerId[i] + '?' + riotKey);
                         const data = await response.json();
-                        redteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                        //verifier si le joueur est dans la ligue
+                        if (data.length == 0) {
+                            redteamRank.push('`' + "Unranked" + '`');
+                        }
+                        else {
+                            let winrate = Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10;
+                            if (winrate >= 50) {
+                                redteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':white_check_mark: ';
+                            }
+                            else if (winrate < 50) {
+                                redteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':x:';
+                            }
+                        }
+
 
                     }
                     //create an objet with redteamRank and redteamSummonerId
@@ -431,7 +478,18 @@ module.exports = {
                     for (var i = 0; i < blueteamSummonerId.length; i++) {
                         const response = await fetch('https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/' + blueteamSummonerId[i] + '?' + riotKey);
                         const data = await response.json();
-                        blueteamRank.push('`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`');
+                        if (data.length == 0) {
+                            blueteamRank.push('`' + "Unranked" + '`');
+                        }
+                        else {
+                            let winrate = Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10;
+                            if (winrate >= 50) {
+                                blueteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':white_check_mark: ';
+                            }
+                            else if (winrate < 50) {
+                                blueteamRank[i] = '`' + data[0].tier + ' ' + data[0].rank + ' ' + data[0].leaguePoints + ' LP`' + '\nWin/loses :' + '`' + data[0].wins + ' / ' + data[0].losses + '`' + '\nWinrate : ' + '`' + Math.round(data[0].wins / (data[0].wins + data[0].losses) * 1000) / 10 + '%`' + ':x:';
+                            }
+                        }
                     }
 
 
@@ -521,9 +579,7 @@ module.exports = {
                 }
             }
         }
-        else {
-            message.channel.send('Commande a utliser en Solo/duo ou en flex');
-        }
+
         //fin game id and send current match info
 
 
@@ -549,60 +605,73 @@ module.exports = {
 
 
 
-            // Parse out mastery level, mastery points, and champion names
-            for (var i = 0; i < 10; i++) {
-                var id = masteryData[i].championId;
-                var points = masteryData[i].championPoints;
-                var parsepoints = new Intl.NumberFormat().format(points);
-                var parsepoints2 = parsepoints.replace(/\s/g, '.');
-                var level = masteryData[i].championLevel;
-                var champName = '';
-                var m = '';
-                var n = '';
-                for (const key in IDTable.data) {
-                    if (IDTable.data[key].key == id) {
-                        champName = IDTable.data[key].id;
-                        n = champName;
-                        m = 'Mastery Level: ' + level + ',     Mastery Points: ' + parsepoints2;
-                        masteries.push(m);
-                        names.push(n);
+            if (split[2] == null) {
+                //crete embed
+                const embed = new Discord.MessageEmbed()
+                    .setTitle('veuillez entrer un nom de champion')
+                    .setColor(0x00AE86)
+
+
+
+
+                message.channel.send({ embed });
+
+            }
+            else {
+                for (var i = 0; i < 10; i++) {
+                    var id = masteryData[i].championId;
+                    var points = masteryData[i].championPoints;
+                    var parsepoints = new Intl.NumberFormat().format(points);
+                    var parsepoints2 = parsepoints.replace(/\s/g, '.');
+                    var level = masteryData[i].championLevel;
+                    var champName = '';
+                    var m = '';
+                    var n = '';
+                    for (const key in IDTable.data) {
+                        if (IDTable.data[key].key == id) {
+                            champName = IDTable.data[key].id;
+                            n = champName;
+                            m = 'Mastery Level: ' + level + ',     Mastery Points: ' + parsepoints2;
+                            masteries.push(m);
+                            names.push(n);
+                        }
                     }
                 }
+                //calcul all mastery points
+                const masteryscore = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/';
+                //with masteryscore find score by sumonername
+                const masteryScore1 = await fetch(masteryscore + encryptedID + '?' + riotKey);
+                let masteryScoreData = await masteryScore1.json();
+                var score = new Intl.NumberFormat().format(masteryScoreData);
+                var score2 = score.replace(/\s/g, '.');
+
+
+
+
+
+
+
+                // League of Legends Summoner Lookup
+                const masteryEmbed = new Discord.MessageEmbed()
+
+
+                    .setColor('#0099ff')
+                    .setTitle('Point de maitrise des champions de `' + summonerName + '`')
+                    .setDescription('Le top 5 des champions de `' + summonerName + '` par point de maitrise.')
+                    .addFields(
+                        { name: ':first_place: `' + names[0] + '`', value: masteries[0] },
+                        { name: ':second_place: `' + names[1] + '`', value: masteries[1] },
+                        { name: ':third_place: `' + names[2] + '`', value: masteries[2] },
+                        { name: '4: `' + names[3] + '`', value: masteries[3] },
+                        { name: '5: `' + names[4] + '`', value: masteries[4] },
+                        { name: 'Point de maîtraise global : ', value: ':arrow_right:  ' + total2 },
+                        { name: 'Total du nombre de level passé : ', value: ':arrow_right:  ' + score2 }
+
+
+                    )
+
+                message.channel.send(masteryEmbed)
             }
-            //calcul all mastery points
-            const masteryscore = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/';
-            //with masteryscore find score by sumonername
-            const masteryScore1 = await fetch(masteryscore + encryptedID + '?' + riotKey);
-            let masteryScoreData = await masteryScore1.json();
-            var score = new Intl.NumberFormat().format(masteryScoreData);
-            var score2 = score.replace(/\s/g, '.');
-
-
-
-
-
-
-
-            // League of Legends Summoner Lookup
-            const masteryEmbed = new Discord.MessageEmbed()
-
-
-                .setColor('#0099ff')
-                .setTitle('Point de maitrise des champions de `' + summonerName + '`')
-                .setDescription('Le top 5 des champions de `' + summonerName + '` par point de maitrise.')
-                .addFields(
-                    { name: ':first_place: `' + names[0] + '`', value: masteries[0] },
-                    { name: ':second_place: `' + names[1] + '`', value: masteries[1] },
-                    { name: ':third_place: `' + names[2] + '`', value: masteries[2] },
-                    { name: '4: `' + names[3] + '`', value: masteries[3] },
-                    { name: '5: `' + names[4] + '`', value: masteries[4] },
-                    { name: 'Point de maîtraise global : ', value: ':arrow_right:  ' + total2 },
-                    { name: 'Total du nombre de level passé : ', value: ':arrow_right:  ' + score2 }
-
-
-                )
-
-            message.channel.send(masteryEmbed)
 
         }
         else if (split[1] == 'rank') { // Player Rank Lookup (Solo and Flex)
@@ -614,13 +683,15 @@ module.exports = {
             var highestRank = -1;
 
             // Unranked Account
-            if (accountData.length == 0) {
-                rankEmbed.setColor('#0099ff');
-                rankEmbed.setTitle('Rank de ' + summonerName);
-                rankEmbed.setDescription('Level du compte: : `' + summonerLevel + '`\nCe joueur est unranked');
-                rankEmbed.setTimestamp()
-                rankEmbed.setFooter("Créé par Senshi", "https://cdn.discordapp.com/avatars/196247557570166784/1dd31426ef78aa73467ad8b7db3f54a5.webp?size=128")
-            } else {
+            if (accountData.length == null) {
+                rankEmbed.setColor('#0099ff')
+                    .setTitle('Veuillez renseigné un nom de joueur valide.')
+
+
+
+            }
+
+            else {
                 // Parse first ranked queue
                 var queueType = '';
                 if (accountData[0].queueType == 'RANKED_SOLO_5x5') {
@@ -708,5 +779,8 @@ module.exports = {
             }
             message.channel.send(rankEmbed);
         }
+        // else {
+        //     message.channel.send('Commande invalide. Utilise `$lol help` pour avoir la liste des commandes.');
+        // }
     }
 }
