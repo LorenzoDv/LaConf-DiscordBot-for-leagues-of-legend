@@ -1,4 +1,5 @@
 # La Confinerie bot discord connect too Riot API
+end WhatIsMyMMR.com 
 A Discord Bot that fetches League of Legend player data from Riot API, hosted on [Heroku](https://dashboard.heroku.com/apps). It can be used as a quick way for players to check their game/rank status. This bot is programmed using node.js along with the powerfull module discord.js. <br/>
  - [Discord Developer Portal](https://discord.com/developers/docs/intro) <br/>
  - [Riot's API](https://developer.riotgames.com) <br/>
@@ -49,6 +50,10 @@ Match info by sumoner name ! Normal game !<br/><br/>
 ``` $lol match #playerName ``` <br/><br/>
 
 <img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-DiscordBot-for-leagues-of-legend/master/img/demo/normal%20game.PNG" width = "300"> <br/><br/><br/>
+``` $mrr #playerName ``` <br/><br/>
+MMR info  !<br/><br/>
+
+<img src="https://raw.githubusercontent.com/LorenzoDv/LaConf-DiscordBot-for-leagues-of-legend/master/img/demo/mrr.PNG" width = "300"> <br/><br/><br/>
 
 
 
