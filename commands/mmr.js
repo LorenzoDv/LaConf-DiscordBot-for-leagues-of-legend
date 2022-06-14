@@ -93,7 +93,7 @@ module.exports = {
                     { name: '\u200B', value: '**:medal: NORMAL GAME  : :arrow_down: **', inline: true + "" },
                     { name: '\u200B', value: '**Normal points : **' + '`' + normal + '` \n ' + '**Rank moyen : **' + '`' + normalrank + '`' + '\n' + '**TOP : **' + '`' + normalResult + '`', inline: true + "" },
                     { name: '\u200B', value: '**:medal: RANKED GAME  : :arrow_down: **', inline: true + "" },
-                    { name: '\u200B', value: '**Normal points : **' + '`' + ranked + '` \n ' + '**Rank moyen : **' + '`' + rankedrank + '`' + '\n' + '**TOP : **' + '`' + rankedResult + '`', inline: true + "" },
+                    { name: '\u200B', value: '**Ranked points : **' + '`' + ranked + '` \n ' + '**Rank moyen : **' + '`' + rankedrank + '`' + '\n' + '**TOP : **' + '`' + rankedResult + '`', inline: true + "" },
                     { name: '\u200B', value: '**:medal: ARAM  :** :arrow_down: ', inline: true + "" },
                     { name: '\u200B', value: '**Aram points : **' + '`' + aram + '` \n ' + '**Rank moyen : **' + '`' + aramrank + '`' + '\n' + '**TOP : **' + '`' + aramResult + '`', inline: true + "" },
 
