@@ -1,4 +1,4 @@
-const mmrKey = 'api_key=' + process.env.MMRKEY;
+const mmrKey = 'apiKey=' + process.env.MMRKEY;
 const fetch = require("node-fetch");
 const Discord = require('discord.js');
 const utf8 = require('utf8');
