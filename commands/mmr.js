@@ -1,8 +1,8 @@
-
+const mmrKey = 'api_key=' + process.env.MMRKEY;
 const fetch = require("node-fetch");
 const Discord = require('discord.js');
 const utf8 = require('utf8');
-const mmrKey = 'api_key=' + process.env.MMRKEY;
+
 
 
 //fetch mrr
@@ -20,7 +20,8 @@ module.exports = {
 
         const rankedResponse = await fetch('https://euw.whatismymmr.com/api/v1/summoner?name=' + name + '&' + mmrKey);
         const rankedJson = await rankedResponse.json();
-        //afficher error
+        console.log(rankedJson.error);
+
         if (rankedJson.error) {
             message.channel.send("Le joueur n'existe pas ou n'est pas enregistré sur le serveur");
         }
@@ -107,7 +108,7 @@ module.exports = {
             message.channel.send(embed);
             console.log(rankedJson);
         }
-        // enlever les %20 a name
+
 
 
 
