@@ -12,7 +12,7 @@ module.exports = {
         let name = '';
         var split = message.content.split(' ')
         for (var i = 1; i < split.length; i++) {
-            name += split[i];
+            name += split[i] + '%20';
         }
         name = utf8.encode(name);
         console.log(name);
