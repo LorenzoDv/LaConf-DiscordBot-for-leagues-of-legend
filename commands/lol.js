@@ -617,6 +617,20 @@ module.exports = {
                 message.channel.send({ embed });
 
             }
+            //verifier si le joueur est inferieur au lvl 30
+            else if (summonerLevel < 30) {
+                //crete embed
+                const embed = new Discord.MessageEmbed()
+
+                    .setTitle('Le joueur dois être au moins niveau 30 pour utliser cette commande')
+                    .addFields({ name: '\u200B', value: `**Nom du joueur : ** ${summonerName}`, inline: true + "" },
+                        { name: '\u200B', value: ` **Lvl du compte : ** ${summonerLevel}`, inline: true + "" },
+
+                    )
+                    .setColor(0x00AE86)
+                message.channel.send({ embed });
+            }
+
             else {
                 for (var i = 0; i < 10; i++) {
                     var id = masteryData[i].championId;
@@ -685,9 +699,17 @@ module.exports = {
             // Unranked Account
             if (accountData.length == null) {
                 rankEmbed.setColor('#0099ff')
-                    .setTitle('Veuillez renseigné un nom de joueur valide.')
+                    .setTitle('Veuillez renseigner un nom de joueur valide.')
 
 
+
+            }
+            else if (summonerLevel < 30) {
+                rankEmbed.setColor('#0099ff')
+
+                rankEmbed.setTitle('Le joueurs ' + '`' + summonerName + '`' + 'est unranked.')
+
+                rankEmbed.setDescription('Level du compte: : `' + summonerLevel + '`');
 
             }
 
