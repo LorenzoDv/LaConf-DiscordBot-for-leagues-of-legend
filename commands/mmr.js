@@ -19,6 +19,9 @@ module.exports = {
 
         const rankedResponse = await fetch('https://euw.whatismymmr.com/api/v1/summoner?name=' + name);
         const rankedJson = await rankedResponse.json();
+        //afficher error
+        let error = rankedJson.error
+        console.log(error)
 
         // enlever les %20 a name
         name = name.replace(/%20/g, ' ');
