@@ -15,6 +15,7 @@ module.exports = {
             name += split[i] + '%20';
         }
         name = utf8.encode(name);
+        console.log(name);
 
         const rankedResponse = await fetch('https://euw.whatismymmr.com/api/v1/summoner?name=' + name);
         const rankedJson = await rankedResponse.json();
