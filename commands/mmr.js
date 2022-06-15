@@ -23,7 +23,7 @@ module.exports = {
         console.log(rankedJson.error);
 
         if (rankedJson.error) {
-            message.channel.send("Le joueur n'existe pas ou n'est pas enregistré sur le serveur");
+            message.channel.send("Le joueur n'existe pas, n'est pas enregistré sur le serveur, ou WhateverIsMyMMR à un problème avec ce pseudo (Veuillez réessayer plus tard).");
         }
         else {
             name = name.replace(/%20/g, ' ');
