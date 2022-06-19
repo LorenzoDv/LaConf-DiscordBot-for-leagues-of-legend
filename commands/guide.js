@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 
 const dot = ":diamond_shape_with_a_dot_inside:";
 const nerd = ":nerd:";
+const sun = ":sunny: ";
 
 module.exports = {
     name: 'help',
@@ -15,6 +16,7 @@ module.exports = {
         lolCmd += "6: Permet de check son mmr\n `$mmr PSEUDO_LOL`\n\n";
         //var lolCmd5 = "5: Post une photo aléatoire de Baron\n `$baron`\n\n";
         var lolCmd5 = "1: Permet d'aider robin\n `$helpbaron`\n\n";
+        var lolCmd6 = "1: Affiche la meteo + plus barbecue OUI/NON\n `$bbq VILLE`,`$bbq b2b`\n\n";
 
 
 
@@ -31,6 +33,9 @@ module.exports = {
         );
         helpEmbed.addFields(
             { name: "\n" + nerd + '  Fun commandes', value: lolCmd5 + "\n\n\n\n" },
+        );
+        helpEmbed.addFields(
+            { name: "\n" + sun + '  Barbecue / Méteo ', value: lolCmd6 + "\n\n\n\n" },
         );
         message.channel.send(helpEmbed);
     },
