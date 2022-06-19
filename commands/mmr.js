@@ -15,12 +15,16 @@ module.exports = {
         for (var i = 1; i < split.length; i++) {
             name += split[i] + '%20';
         }
-        name = utf8.encode(name);
+
         console.log(name);
+        name = utf8.encode(name);
+
+
+
 
         const rankedResponse = await fetch('https://euw.whatismymmr.com/api/v1/summoner?name=' + name + '&' + mmrKey);
         const rankedJson = await rankedResponse.json();
-        console.log(rankedJson.error);
+
 
         if (rankedJson.error) {
             message.channel.send("Le joueur n'existe pas, n'est pas enregistré sur le serveur, ou WhateverIsMyMMR à un problème avec ce pseudo (Veuillez réessayer plus tard).");
