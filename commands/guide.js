@@ -14,6 +14,7 @@ module.exports = {
         lolCmd += "4: Info de la game\n `$lol match PSEUDO_LOL`\n\n";
         lolCmd += "5: Permet de ping dans le channel League of Legends\n `$l`\n\n";
         lolCmd += "6: Permet de check son mmr\n `$mmr PSEUDO_LOL`\n\n";
+        lolCmd += "7: Affiche le lore, et la difficulté d'un champion\n `$lore CHAMPNAME`\n\n";
         //var lolCmd5 = "5: Post une photo aléatoire de Baron\n `$baron`\n\n";
         var lolCmd5 = "1: Permet d'aider robin\n `$helpbaron`\n\n";
         var lolCmd6 = "1: Affiche la meteo + plus barbecue OUI/NON\n `$bbq VILLE`,`$bbq b2b`\n\n";
